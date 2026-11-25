@@ -13,5 +13,4 @@ export const brands: Brand[] = [
   { name: "V2COM", color: "yellow" },
   { name: "Willow Voice", color: "rose", featured: { field: "Dictation software" } },
   { name: "Fish Audio", color: "blue" },
-  { name: "Tripo 3D", color: "lilac" },
 ];
