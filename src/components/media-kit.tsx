@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Download, Film, Heart } from "lucide-react";
-import { mediaKit } from "@/data/site-config";
+import { hasMediaKitRates, mediaKit } from "@/data/site-config";
 import { Flower, Spark } from "./art";
 import { SectionTitle } from "./section-title";
 
@@ -20,7 +20,10 @@ export function MediaTeaser() {
         <div>
           <SectionTitle id="teaser-title" note="For brands & agencies" title="the creator side of things" mark="spark"
             description="See what I make, who I make it for, and how we can work together." />
-          <Link className="button button-primary" href="/media-kit">Explore my media kit</Link>
+          <div className="media-teaser-actions">
+            <Link className="button button-primary" href="/media-kit">Explore my media kit</Link>
+            {hasMediaKitRates && <Link className="button button-outline" href="/media-kit#rates">View rates</Link>}
+          </div>
         </div>
         <div className="kit-illustration" aria-hidden="true">
           <div className="kit-shadow-paper" /><div className="kit-sheet"><div className="tape" /><span>Ndinda Codes</span>

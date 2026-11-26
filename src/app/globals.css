@@ -417,7 +417,7 @@ button:disabled { cursor: wait; }
 
 .media-teaser { background-color: #dceafa; }
 .media-teaser-grid { grid-template-columns: 1.15fr .85fr; }
-.media-teaser .button { margin-top: 22px; }
+.media-teaser-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
 .kit-illustration { position: relative; height: 230px; width: min(100%, 335px); justify-self: center; }
 .kit-illustration > svg:nth-last-child(2) { position: absolute; left: 5%; bottom: 3%; width: 25%; color: #c5a0da; --outline: #9869a9; transform: rotate(-14deg); }
 .kit-illustration > svg:last-child { position: absolute; top: 9%; right: 8%; width: 13%; color: #c88eae; }
@@ -497,13 +497,18 @@ button:disabled { cursor: wait; }
 .services-grid svg { flex: none; color: var(--purple); }
 .services-grid h3 { font-size: .96rem; font-weight: 730; margin: 0; }
 .rate-card { margin-top: 33px; background: #f5eaf5; border: 1px solid #e1cbe4; border-radius: 15px; padding: clamp(17px, 3.2vw, 36px); }
-.rate-card h3 { margin: 0 0 12px; font: 400 1.95rem/1.05 var(--font-serif); }
-.rate-accordion details { border-bottom: 1px solid #dbc4e0; }
-.rate-accordion summary { padding-block: 10px; font-weight: 750; color: var(--purple); }
-.rate-accordion dl { margin: 0 0 11px; }
-.rate-accordion dl div { display: flex; justify-content: space-between; gap: 7px 18px; padding: 4px 0 4px 17px; }
-.rate-accordion dd { margin: 0; font-weight: 710; text-align: right; }
-.rate-terms { margin: 16px 0 0; padding-left: 19px; list-style: disc; color: var(--muted); font-size: .91rem; }
+.rate-card h3 { margin: 0 0 18px; font: 400 clamp(1.95rem, 4vw, 2.65rem)/1.05 var(--font-serif); }
+.rate-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.rate-group { padding: 14px; border: 1px solid #e1cbe4; border-radius: 10px; background: #fffbf4; }
+.rate-group:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.rate-card h4 { margin: 0 0 6px; color: var(--purple); font-size: 1rem; font-weight: 750; }
+.rate-group dl { margin: 0; }
+.rate-group dl div { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; padding-block: 6px; }
+.rate-group dl div + div { border-top: 1px solid #ebdcea; }
+.rate-group dd { max-width: 45%; margin: 0; color: var(--color-ink); font-weight: 750; text-align: right; }
+.rate-booking { margin-top: 18px; }
+.rate-terms { margin: 0; padding-left: 19px; list-style: disc; color: var(--muted); font-size: .91rem; }
+.rate-card .button { margin-top: 18px; }
 .kit-contact { background-color: #dceafa; }
 .kit-contact .text-link { margin-top: 8px; }
 
@@ -559,6 +564,7 @@ button:disabled { cursor: wait; }
   .contact-doodle { display: none; }
   .kit-photo-stack { width: min(100%, 430px); margin-inline: auto; }
   .services-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .rate-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 500px) {
   .shell { width: calc(100% - 36px); }

@@ -8,7 +8,7 @@ import { DownloadKit } from "@/components/media-kit";
 import { PhotoFrame } from "@/components/photo";
 import { SectionTitle } from "@/components/section-title";
 import { categories } from "@/data/reels";
-import { mediaKit, services, site } from "@/data/site-config";
+import { hasMediaKitRates, mediaKit, services, site } from "@/data/site-config";
 import { productionOrigin } from "@/lib/origin";
 
 const title = "Media Kit";
@@ -36,7 +36,11 @@ export default function MediaKitPage() {
             <h1 className="section-title" id="kit-title">the creator side of <span className="kit-title-end">things <Spark /></span></h1>
             <p>{site.bio[0]}</p>
             <p className="kit-location"><MapPin size={17} aria-hidden="true" />{site.location}</p>
-            <div className="kit-hero-actions"><DownloadKit /><Link className="button button-outline" href="/#contact">Discuss a project <Heart size={16} aria-hidden="true" /></Link></div>
+            <div className="kit-hero-actions">
+              <DownloadKit />
+              {hasMediaKitRates ? <a className="button button-outline" href="#rates">View rates</a> :
+                <Link className="button button-outline" href="/#contact">Discuss a project <Heart size={16} aria-hidden="true" /></Link>}
+            </div>
           </div>
           <div className="kit-photo-stack">
             <PhotoFrame photo={site.media.hero} className="kit-portrait" caption={site.creator} placeholder="Portrait photo placeholder" sizes="(max-width: 640px) 58vw, 300px" priority />
@@ -61,16 +65,27 @@ export default function MediaKitPage() {
             const Icon = serviceIcons[index] ?? Film;
             return <li key={service}><Icon size={22} aria-hidden="true" /><h3>{service}</h3></li>;
           })}</ul>
-          {mediaKit.showRates && mediaKit.rates.length > 0 && (
-            <div className="rate-card">
-              <h3>Rates &amp; booking terms</h3>
-              <div className="rate-accordion">{mediaKit.rates.map(({ title, items }) => (
-                <details key={title}><summary>{title}</summary><dl>{items.map(({ label, price }) => (
-                  <div key={label}><dt>{label}</dt><dd>{price}</dd></div>
-                ))}</dl></details>
-              ))}</div>
-              <ul className="rate-terms">{mediaKit.terms.map((term) => <li key={term}>{term}</li>)}</ul>
-            </div>
+          {hasMediaKitRates && (
+            <section className="rate-card" id="rates" aria-labelledby="rates-title">
+              <h3 id="rates-title">Collaboration rates</h3>
+              <div className="rate-grid">
+                {mediaKit.rates.map(({ title, items }) => (
+                  <div className="rate-group" key={title}>
+                    <h4>{title}</h4>
+                    <dl>
+                      {items.map(({ label, price }) => <div key={label}><dt>{label}</dt><dd>{price}</dd></div>)}
+                    </dl>
+                  </div>
+                ))}
+              </div>
+              {mediaKit.terms.length > 0 && (
+                <div className="rate-booking">
+                  <h4>Booking terms</h4>
+                  <ul className="rate-terms">{mediaKit.terms.map((term) => <li key={term}>{term}</li>)}</ul>
+                </div>
+              )}
+              <Link className="button button-primary" href="/#contact">Discuss a project <Heart size={16} aria-hidden="true" /></Link>
+            </section>
           )}
         </div>
       </section>

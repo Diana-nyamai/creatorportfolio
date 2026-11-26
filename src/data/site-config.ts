@@ -95,3 +95,5 @@ export const mediaKit: {
     "A 50% deposit secures the booking. The remaining 50% is due before publication.",
   ],
 };
+
+export const hasMediaKitRates = mediaKit.showRates && mediaKit.rates.length > 0;
