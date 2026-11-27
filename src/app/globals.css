@@ -728,3 +728,41 @@ button:disabled { cursor: wait; }
   .hero-portrait, .hero-location, .hero-terminal { animation: none; }
   .hero-copy > *, .about-art > *, .journey li { filter: none !important; opacity: 1 !important; }
 }
+
+.hero-scene {
+  --hero-arrival-distance: 42px;
+}
+
+.hero-cursor-trail {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.hero-cursor path { fill: #8d659f; stroke: #fff8ef; stroke-width: 1.35; stroke-linejoin: round; }
+.hero-cursor-trail > g:nth-child(2n) path { fill: var(--purple); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-scene { animation: hero-arrival 1.48s cubic-bezier(.22, 1, .36, 1) 90ms both; }
+  .hero-cursor-trail { display: block; }
+  .hero-cursor { animation: hero-cursor-approach var(--cursor-duration) cubic-bezier(.18, .74, .36, 1) var(--cursor-delay) both; }
+}
+
+@media (max-width: 720px) {
+  .hero-scene { --hero-arrival-distance: 22px; }
+}
+
+@keyframes hero-arrival {
+  from { transform: translate3d(var(--hero-arrival-distance), 12px, 0) rotate(-2deg); opacity: .55; }
+  to { transform: translate3d(0, 0, 0) rotate(0); opacity: 1; }
+}
+
+@keyframes hero-cursor-approach {
+  0% { opacity: 0; transform: translate3d(0, 0, 0) scale(.7); }
+  19%, 61% { opacity: 1; }
+  100% { opacity: 0; transform: translate3d(var(--cursor-x), var(--cursor-y), 0) scale(.86); }
+}

@@ -6,6 +6,7 @@ import type { PointerEvent, ReactNode } from "react";
 import { ArrowDown, CodeXml, Heart } from "lucide-react";
 import { site } from "@/data/site-config";
 import { Flower } from "./art";
+import { HeroCursorTrail } from "./hero-cursor-trail";
 
 import { BlurFade } from "./motion/blur-fade";
 import { SpringLink } from "./motion/spring-action";
@@ -43,10 +44,12 @@ export function HeroFrame({ children }: { children: ReactNode }) {
             <a className="button button-outline" href="#contact">Let’s collaborate <Heart size={16} aria-hidden="true" /></a>
           </BlurFade>
         </div>
-        <motion.div className="hero-art" initial={reduced ? false : { scale: 0.98, y: 18, rotate: -2 }}
-          animate={{ scale: 1, y: 0, rotate: 0 }} transition={{ duration: reduced ? 0 : 0.7, delay: reduced ? 0 : 0.16 }}>
-          <motion.div className="hero-parallax" style={reduced ? undefined : { x: springX, y: vertical }}>{children}</motion.div>
-        </motion.div>
+        <div className="hero-art">
+          <div className="hero-scene">
+            <motion.div className="hero-parallax" style={reduced ? undefined : { x: springX, y: vertical }}>{children}</motion.div>
+          </div>
+          <HeroCursorTrail />
+        </div>
         <a className="scroll-note" href="#about"><span><ArrowDown size={14} aria-hidden="true" /></span> scroll a little</a>
       </div>
     </section>
