@@ -28,7 +28,7 @@ The production script uses Next.js’s Webpack compiler. The development server 
 Motion is already listed in `package.json`. To add the same version to another project, run `npm install motion@12.43.0`.
 
 - `BlurFade` wraps hero text and the About photos and pillars. Set `onScroll` for a one-time viewport entrance and `delay` to stagger adjacent elements.
-- `Marquee` accepts server-rendered children and handles pause controls for the ticker and brand strip.
+- `Marquee` renders the ticker and brand strip with CSS motion that pauses on hover or keyboard focus.
 - `CountUp` receives the follower count as a number from the server. The server HTML and screen readers get the final value.
 - `TypingCode` uses CSS steps for the terminal line. The whole snippet is available as text as soon as the page renders.
 
