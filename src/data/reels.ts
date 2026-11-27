@@ -3,7 +3,6 @@ export type Category = (typeof categories)[number];
 export type Reel = {
   id: string;
   title: string;
-  description?: string;
   category: Category;
   brand?: string;
   thumbnail: string | null;
@@ -20,7 +19,6 @@ export const reels: Reel[] = [
   {
     id: "fish-audio",
     title: "Giving my builds a voice",
-    description: "A coding demo that uses Fish Audio’s text-to-speech API to voice build updates.",
     category: "Brand Collaborations",
     brand: "Fish Audio",
     thumbnail: "/images/fish-audio-reel.webp",
@@ -79,10 +77,10 @@ export const reels: Reel[] = [
     publishedDate: null,
     embed: true,
   },
-  { id: "api", title: "APIs, explained with coffee", description: "A short backend explainer with a familiar example.", category: "Tech & Coding", thumbnail: null, instagramUrl: null, publishedDate: null, featured: true, sample: true },
-  { id: "works-on-my-machine", title: "It works on my machine", description: "A very familiar developer plot twist.", category: "Developer Humor", thumbnail: null, instagramUrl: null, publishedDate: null, sample: true },
-  { id: "desk", title: "A little desk reset", description: "Tidying the workspace before a day of coding.", category: "Lifestyle", thumbnail: null, instagramUrl: null, publishedDate: null, sample: true },
-  { id: "keyboard", title: "The keyboard test", description: "A hands-on look at what a keyboard feels and sounds like.", category: "Product Reviews", thumbnail: null, instagramUrl: null, publishedDate: null, sample: true },
+  { id: "api", title: "APIs, explained with coffee", category: "Tech & Coding", thumbnail: null, instagramUrl: null, publishedDate: null, featured: true, sample: true },
+  { id: "works-on-my-machine", title: "It works on my machine", category: "Developer Humor", thumbnail: null, instagramUrl: null, publishedDate: null, sample: true },
+  { id: "desk", title: "A little desk reset", category: "Lifestyle", thumbnail: null, instagramUrl: null, publishedDate: null, sample: true },
+  { id: "keyboard", title: "The keyboard test", category: "Product Reviews", thumbnail: null, instagramUrl: null, publishedDate: null, sample: true },
 ];
 
 export function reelUrl(reel: Reel) {

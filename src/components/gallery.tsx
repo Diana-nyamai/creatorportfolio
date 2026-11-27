@@ -41,7 +41,6 @@ const ReelCard = forwardRef<HTMLElement, { reel: Reel; reduced: boolean }>(({ re
         <span className="reel-category">{reel.category}</span>
         <h3>{reel.title} {url && <ArrowUpRight className="reel-external" size={16} aria-hidden="true" />}</h3>
         {reel.brand && reel.brand !== reel.title && <p className="reel-brand">{reel.brand}</p>}
-        {reel.description && <p>{reel.description}</p>}
         {(reel.views !== undefined || reel.publishedDate) && <p className="reel-meta">
           {reel.views !== undefined && `${formatCount(reel.views)} views`}
           {reel.views !== undefined && reel.publishedDate && " · "}

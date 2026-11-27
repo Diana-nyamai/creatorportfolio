@@ -45,8 +45,7 @@ export default function Home() {
       <section id="work" className="section work paper" aria-labelledby="work-title">
         <div className="shell">
           <div className="work-intro">
-            <SectionTitle id="work-title" note="From the camera roll" title="things i’ve created"
-              description="A little collection of content, creativity, and collaborations." />
+            <SectionTitle id="work-title" note="From the camera roll" title="things i’ve created" />
             <a className="text-link" target="_blank" rel="noopener noreferrer" href={site.instagram.url}><Instagram /> See more on Instagram</a>
           </div>
           <Gallery entries={reels} />
