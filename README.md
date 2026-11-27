@@ -29,7 +29,7 @@ The production script uses Next.js’s Webpack compiler. The development server 
 | --- | --- |
 | [`src/data/site-config.ts`](src/data/site-config.ts) | Bio, headline, social links, email, photos, audience metrics, services, rates, terms, and the PDF link |
 | [`src/data/reels.ts`](src/data/reels.ts) | Reels, categories, thumbnails, exact Instagram URLs, dates, views, display order, and opt-in playback |
-| [`src/data/brands.ts`](src/data/brands.ts) | Brand names, approved logos, featured slots, campaign descriptions, Reel references, and supplied results |
+| [`src/data/brands.ts`](src/data/brands.ts) | Brand names, approved logos, campaign titles, Reel references, and supplied results |
 | [`public/images/`](public/images/) | Local portraits, workspace photos, future Reel covers, and the Open Graph image |
 | [`public/media-kit/`](public/media-kit/) | The downloadable PDF |
 
