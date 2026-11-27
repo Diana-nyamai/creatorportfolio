@@ -1,9 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowUpRight, Bug, Clapperboard, CodeXml, Coffee, Keyboard, Play } from "lucide-react";
+import { ArrowUpRight, Bug, Clapperboard, CodeXml, Coffee, Keyboard, Play, X } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { brands } from "@/data/brands";
 import { categories, reelUrl, type Category, type Reel } from "@/data/reels";
 import { formatCount, formatDate } from "@/lib/format";
 import { Flower, Instagram, Spark } from "./art";
@@ -18,9 +19,12 @@ const coverArt = {
 
 function ReelCard({ reel }: { reel: Reel }) {
   const url = reelUrl(reel);
-  const { Icon, tone } = coverArt[reel.category];
-  const [showEmbed, setShowEmbed] = useState(false);
-  const embedUrl = url && reel.embed ? `https://www.instagram.com${new URL(url).pathname.replace(/\/$/, "")}/embed/` : null;
+  const { Icon, tone: categoryTone } = coverArt[reel.category];
+  const tone = brands.find(({ name }) => name === reel.brand)?.color ?? categoryTone;
+  const [showPlayer, setShowPlayer] = useState(false);
+  const instagramPlayer = useRef<HTMLDialogElement>(null);
+  const videoSrc = reel.sample ? undefined : reel.videoSrc;
+  const embedUrl = !videoSrc && url && reel.embed ? `https://www.instagram.com${new URL(url).pathname.replace(/\/$/, "")}/embed/` : null;
 
   const content = (
     <>
@@ -36,8 +40,8 @@ function ReelCard({ reel }: { reel: Reel }) {
       <div className="reel-caption">
         <span className="reel-category">{reel.category}</span>
         <h3>{reel.title} {url && <ArrowUpRight className="reel-external" size={16} aria-hidden="true" />}</h3>
-        {reel.brand && <p className="reel-brand">{reel.brand}</p>}
-        <p>{reel.description}</p>
+        {reel.brand && reel.brand !== reel.title && <p className="reel-brand">{reel.brand}</p>}
+        {reel.description && <p>{reel.description}</p>}
         {(reel.views !== undefined || reel.publishedDate) && <p className="reel-meta">
           {reel.views !== undefined && `${formatCount(reel.views)} views`}
           {reel.views !== undefined && reel.publishedDate && " · "}
@@ -51,13 +55,33 @@ function ReelCard({ reel }: { reel: Reel }) {
   return (
     <article className="reel-card">
       {url ? <a href={url} target="_blank" rel="noopener noreferrer">{content}</a> : content}
-      {embedUrl && <div className="reel-embed">
-        <button type="button" aria-expanded={showEmbed} onClick={() => setShowEmbed(!showEmbed)}>
-          {showEmbed ? "Hide Instagram player" : "Load Instagram player"}
+      {videoSrc && <div className="reel-embed">
+        <button type="button" aria-expanded={showPlayer} onClick={() => setShowPlayer(!showPlayer)}>
+          {showPlayer ? "Hide player" : "Watch here"}
         </button>
-        {showEmbed && <iframe src={embedUrl} title={`Instagram Reel: ${reel.title}`} loading="lazy"
-          referrerPolicy="strict-origin-when-cross-origin" allow="encrypted-media; fullscreen" allowFullScreen />}
+        {showPlayer && (
+          <video controls playsInline preload="none" src={videoSrc} poster={reel.thumbnail ?? undefined} aria-label={reel.title} />
+        )}
       </div>}
+      {url && embedUrl && (
+        <div className="reel-embed">
+          <button type="button" aria-haspopup="dialog" aria-label={`Load Instagram player for ${reel.title}`}
+            onClick={() => { instagramPlayer.current?.showModal(); setShowPlayer(true); }}>
+            Load Instagram player
+          </button>
+          <dialog className="reel-dialog" ref={instagramPlayer} aria-label={reel.title} onClose={() => setShowPlayer(false)}>
+            <div className="reel-dialog-header">
+              <h3>{reel.title}</h3>
+              <button type="button" aria-label="Close Instagram player" onClick={() => instagramPlayer.current?.close()}>
+                <X size={20} aria-hidden="true" />
+              </button>
+            </div>
+            <a className="text-link" href={url} target="_blank" rel="noopener noreferrer"><Instagram /> Watch on Instagram</a>
+            {showPlayer && <iframe src={embedUrl} title={`Instagram Reel: ${reel.title}`} loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin" allow="encrypted-media; fullscreen" allowFullScreen />}
+          </dialog>
+        </div>
+      )}
     </article>
   );
 }

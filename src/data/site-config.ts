@@ -32,7 +32,7 @@ export const site = {
     about: { src: "/images/ndinda-about.webp", alt: "A closer crop of Diana Ndinda’s portrait", position: "51% 28%" },
     workspace: { src: "/images/ndinda-workspace.webp", alt: "Diana’s workspace with a laptop and a large monitor", position: "50% 62%" },
     studio: { src: "/images/ndinda-studio.webp", alt: "Diana’s desk setup with a monitor and leafy plant", position: "50% 65%" },
-    darcy: { src: null, alt: "Darcy, Diana’s black cat" },
+    darcy: { src: "/images/darcy.webp", alt: "Darcy, Diana’s black cat, beside a keyboard", position: "50% 68%" },
   } satisfies Record<string, Photo>,
   audience: [
     { label: "Average reach", value: null },

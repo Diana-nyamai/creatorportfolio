@@ -26,10 +26,12 @@ export function CampaignHighlights() {
       {highlights.map(({ name, color, campaign, featured }) => {
         const matchingReel = campaign?.reelId && reels.find(({ id }) => id === campaign.reelId);
         const url = matchingReel && reelUrl(matchingReel);
+        const label = campaign?.title ? name : featured?.field;
         return (
           <article key={name} className={`campaign-card tone-${color}`}>
             <Clapperboard className="campaign-decoration" size={22} aria-hidden="true" />
-            <p className="reel-category">{campaign ? name : featured?.field}</p><h3>{campaign?.title || name}</h3>
+            {label && <p className="reel-category">{label}</p>}
+            <h3>{campaign?.title || name}</h3>
             {campaign?.summary && <p>{campaign.summary}</p>}
             {campaign?.results && <p className="campaign-results">{campaign.results}</p>}
             {url && <a className="text-link" href={url} target="_blank" rel="noopener noreferrer"><Instagram /> Watch on Instagram</a>}
