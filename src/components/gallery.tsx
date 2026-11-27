@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import { ArrowUpRight, Bug, Clapperboard, CodeXml, Coffee, Keyboard, Play, X } from "lucide-react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
-import { useRef, useState } from "react";
+import { AnimatePresence, LayoutGroup, motion, useReducedMotion } from "motion/react";
+import { forwardRef, useRef, useState } from "react";
 import { brands } from "@/data/brands";
 import { categories, reelUrl, type Category, type Reel } from "@/data/reels";
 import { formatCount, formatDate } from "@/lib/format";
@@ -17,7 +17,7 @@ const coverArt = {
   "Product Reviews": { tone: "blue", Icon: Keyboard },
 } satisfies Record<Category, unknown>;
 
-function ReelCard({ reel }: { reel: Reel }) {
+const ReelCard = forwardRef<HTMLElement, { reel: Reel; reduced: boolean }>(({ reel, reduced }, ref) => {
   const url = reelUrl(reel);
   const { Icon, tone: categoryTone } = coverArt[reel.category];
   const tone = brands.find(({ name }) => name === reel.brand)?.color ?? categoryTone;
@@ -35,7 +35,7 @@ function ReelCard({ reel }: { reel: Reel }) {
         </div>
         <span className="reel-cover-label">{reel.sample ? "Sample Reel" : reel.featured ? "Featured" : ""}</span>
         <Instagram className="reel-instagram" />
-        {url && <span className="reel-overlay"><Play size={18} aria-hidden="true" /> Watch on Instagram</span>}
+        {url && <span className="reel-overlay"><span className="reel-overlay-pill"><Play size={16} aria-hidden="true" /> Watch on Instagram</span></span>}
       </div>
       <div className="reel-caption">
         <span className="reel-category">{reel.category}</span>
@@ -53,7 +53,9 @@ function ReelCard({ reel }: { reel: Reel }) {
   );
 
   return (
-    <article className="reel-card">
+    <motion.article ref={ref} className="reel-card" layout={reduced ? false : "position"}
+      initial={reduced ? false : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+      exit={reduced ? undefined : { opacity: 0, scale: 0.97 }} transition={{ duration: reduced ? 0 : 0.24 }}>
       {url ? <a href={url} target="_blank" rel="noopener noreferrer">{content}</a> : content}
       {videoSrc && <div className="reel-embed">
         <button type="button" aria-expanded={showPlayer} onClick={() => setShowPlayer(!showPlayer)}>
@@ -82,9 +84,10 @@ function ReelCard({ reel }: { reel: Reel }) {
           </dialog>
         </div>
       )}
-    </article>
+    </motion.article>
   );
-}
+});
+ReelCard.displayName = "ReelCard";
 
 export function Gallery({ entries }: { entries: Reel[] }) {
   const [filter, setFilter] = useState<Category | "All">("All");
@@ -93,20 +96,22 @@ export function Gallery({ entries }: { entries: Reel[] }) {
 
   return (
     <>
-      <div className="filters" role="group" aria-label="Filter Reels">
+      <LayoutGroup><div className="filters" role="group" aria-label="Filter Reels">
         {(["All", ...categories] as const).map((category) => (
-          <button type="button" key={category} aria-pressed={filter === category} onClick={() => setFilter(category)}>{category}</button>
+          <button type="button" key={category} aria-pressed={filter === category} onClick={() => setFilter(category)}>
+            {filter === category && <motion.span className="filter-active" layoutId={reduced ? undefined : "active-filter"} transition={{ type: "spring", stiffness: 420, damping: 35 }} />}
+            <span>{category}</span>
+          </button>
         ))}
-      </div>
+      </div></LayoutGroup>
       <p className="sr-only" role="status">{shown.length} {shown.length === 1 ? "Reel" : "Reels"} shown</p>
-      <AnimatePresence initial={false} mode="popLayout">
-        <motion.div className="reel-grid" key={filter} initial={reduced ? false : { opacity: 0, y: 6 }}
-          animate={{ opacity: 1, y: 0 }} transition={{ duration: reduced ? 0 : 0.22 }}>
-          {shown.length ? shown.map((reel) => <ReelCard key={reel.id} reel={reel} />) :
-            <div className="gallery-empty"><Flower /><h3>No Reels here yet</h3><p>Try another category to keep exploring.</p>
+      <div className="reel-grid">
+        <AnimatePresence initial={false} mode="popLayout">
+          {shown.length ? shown.map((reel) => <ReelCard key={reel.id} reel={reel} reduced={Boolean(reduced)} />) :
+            <div className="gallery-empty" key="empty"><Flower /><h3>No Reels here yet</h3><p>Try another category to keep exploring.</p>
               {filter !== "All" && <button className="button button-outline" onClick={() => setFilter("All")}>Show all Reels</button>}</div>}
-        </motion.div>
-      </AnimatePresence>
+        </AnimatePresence>
+      </div>
     </>
   );
 }

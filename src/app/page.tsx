@@ -6,6 +6,7 @@ import { Community } from "@/components/community";
 import { Contact } from "@/components/contact";
 import { Gallery } from "@/components/gallery";
 import { Hero } from "@/components/hero";
+import { Marquee } from "@/components/motion/marquee";
 import { MediaTeaser } from "@/components/media-kit";
 import { SectionTitle } from "@/components/section-title";
 import { reels } from "@/data/reels";
@@ -36,9 +37,9 @@ export default function Home() {
     <main id="main" tabIndex={-1}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }} />
       <Hero />
-      <div className="scrap-strip paper" aria-hidden="true">
+      <Marquee className="scrap-strip paper" label="creator ticker">
         <div><Flower /> backend brain <Spark /> creator heart <Flower /> cat mom <Spark /> based in nairobi <Flower /> always building <Spark /></div>
-      </div>
+      </Marquee>
       <About />
       <Community />
       <section id="work" className="section work paper" aria-labelledby="work-title">

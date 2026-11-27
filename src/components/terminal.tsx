@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { TypingCode } from "./motion/typing-code";
 import { Play } from "lucide-react";
 
 export function Terminal() {
@@ -15,7 +16,7 @@ export function Terminal() {
         </button>
       </div>
       <div className="terminal-content">
-        <code><span>console</span>.log(<em>&quot;hello from ndinda ♡&quot;</em>)</code>
+        <TypingCode />
         <span className="terminal-output" aria-live="polite">{ran ? "› hello from ndinda ♡" : ""}</span>
       </div>
     </div>

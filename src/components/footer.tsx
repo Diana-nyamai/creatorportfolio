@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowUp, Mail } from "lucide-react";
 import { site } from "@/data/site-config";
 import { Flower, Instagram } from "./art";
+import { SpringLink } from "./motion/spring-action";
 import { Darcy } from "./darcy";
 
 export function Footer() {
@@ -14,7 +15,7 @@ export function Footer() {
           <div className="footer-links">
             <a href={site.instagram.url} target="_blank" rel="noopener noreferrer"><Instagram /> Instagram</a>
             <a href={`mailto:${site.email}`}><Mail size={18} aria-hidden="true" /> Email</a>
-            <Link href="#top"><ArrowUp size={17} aria-hidden="true" /> Back to top</Link>
+            <SpringLink href="#top"><ArrowUp size={17} aria-hidden="true" /> Back to top</SpringLink>
           </div>
           <Darcy className="footer-darcy" />
         </div>

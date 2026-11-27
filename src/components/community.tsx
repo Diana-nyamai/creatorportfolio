@@ -2,9 +2,11 @@ import { Suspense } from "react";
 import { connection } from "next/server";
 import { site } from "@/data/site-config";
 import { getInstagramStats, type InstagramStats } from "@/lib/instagram";
-import { formatCount, formatDate } from "@/lib/format";
+import { formatDate } from "@/lib/format";
 import { Flower, Instagram } from "./art";
 import { SectionTitle } from "./section-title";
+
+import { CountUp } from "./motion/count-up";
 
 const manual: InstagramStats = { followers: site.instagram.fallbackFollowers, source: "manual" };
 
@@ -14,7 +16,7 @@ function AudienceMetrics({ stats }: { stats: InstagramStats }) {
       <div className="follower-metric">
         <dl>
           <dt>Instagram followers</dt>
-          <dd className="metric-value">{formatCount(stats.followers)}</dd>
+          <dd className="metric-value"><CountUp value={stats.followers} /></dd>
           {stats.updatedAt ? <dd className="metric-source">Updated <time dateTime={stats.updatedAt}>{formatDate(stats.updatedAt)}</time></dd> :
             <dd className="metric-source">{stats.source === "manual" ? "Manual count" : "From Instagram"}</dd>}
         </dl>

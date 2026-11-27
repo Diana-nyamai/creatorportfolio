@@ -3,6 +3,7 @@
 import { useRef, useState, type FormEvent } from "react";
 import { ChevronDown, Heart } from "lucide-react";
 import { collaborationTypes, inquiryFields, validateInquiry, type InquiryErrors, type InquiryField, type InquiryResponse } from "@/lib/inquiry";
+import { SpringButton } from "./motion/spring-action";
 import { site } from "@/data/site-config";
 
 function draftUrl(values: ReturnType<typeof validateInquiry>["values"]) {
@@ -98,7 +99,7 @@ export function ContactForm({ available }: { available: boolean }) {
       </div>
       <div hidden><label htmlFor="inquiry-website">Website</label><input id="inquiry-website" name="website" tabIndex={-1} autoComplete="off" /></div>
       <div className="form-actions">
-        <button className="button button-primary" disabled={pending}>{pending ? "Sending…" : available ? "Send inquiry" : "Prepare email"} <Heart size={15} aria-hidden="true" /></button>
+        <SpringButton className="button button-primary" disabled={pending}>{pending ? "Sending…" : available ? "Send inquiry" : "Prepare email"} <Heart size={15} aria-hidden="true" /></SpringButton>
         {!available && <p className="delivery-note">Web delivery is pending setup. <a href={`mailto:${site.email}`}>Email me directly</a>.</p>}
       </div>
       {draft && <p className="form-feedback" data-ok="true" role="status"><a href={draft}>Open your email draft</a> to send the inquiry.</p>}

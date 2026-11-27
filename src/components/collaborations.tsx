@@ -3,10 +3,12 @@ import { Clapperboard } from "lucide-react";
 import { brands } from "@/data/brands";
 import { reels, reelUrl } from "@/data/reels";
 import { Instagram } from "./art";
+import { Marquee } from "./motion/marquee";
 import { SectionTitle } from "./section-title";
 
 export function BrandCards() {
   return (
+    <Marquee className="brand-marquee" label="brand strip">
     <ul className="brand-grid" aria-label="Collaboration partners">
       {brands.map(({ name, color, logo }) => (
         <li key={name} className={`brand-card tone-${color}`}>
@@ -14,6 +16,7 @@ export function BrandCards() {
         </li>
       ))}
     </ul>
+    </Marquee>
   );
 }
 
