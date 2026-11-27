@@ -34,6 +34,10 @@ Motion is already listed in `package.json`. To add the same version to another p
 
 The homepage and media kit remain Server Components. Import these wrappers where they are needed and pass server-rendered content as children, as in `src/components/about.tsx`.
 
+The hero loads its Three.js scene after the collage becomes visible on a desktop-sized device with a fine pointer. The props can be clicked, dragged, or spun with the keyboard. Narrow and touch layouts, reduced motion, and unavailable WebGL use static stickers. WebGL rendering pauses outside the viewport.
+
+The environment map is a local 256 × 128 copy of the [Potsdamer Platz HDRI](https://polyhaven.com/a/potsdamer_platz) by Greg Zaal, released under CC0. It is the same source used by Drei’s `city` preset.
+
 ## Edit content
 
 | File | What to change |

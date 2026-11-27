@@ -199,25 +199,31 @@ button:disabled { cursor: wait; }
   padding: 6px 10px; transform: rotate(9deg); border: 1px solid #b4c7db; border-radius: 5px;
   background: #d9eafb; box-shadow: var(--shadow); color: #344960; font-size: clamp(.65rem, 1.1vw, .81rem); font-weight: 750;
 }
-.hero-brackets {
-  position: absolute; top: 19%; left: 6%; display: grid; place-items: center; width: 48px; height: 44px;
-  border: 2px solid #fffaf4; border-radius: 13px; background: #d2e7fa; color: #536a8d;
-  box-shadow: var(--shadow); transform: rotate(-12deg);
+/* The 3D layer shares the collage coordinates with its static stickers. */
+.hero-props, .hero-prop-canvas { position: absolute; inset: 0; pointer-events: none; }
+.hero-props { z-index: 1; }
+.hero-prop-canvas { opacity: 0; }
+.hero-props[data-webgl=true] .hero-prop-canvas { opacity: 1; }
+.hero-prop-hit, .hero-prop-sticker {
+  position: absolute; left: var(--prop-x); top: var(--prop-y); translate: -50% -50%;
 }
-.hero-brackets svg { width: 23px; }
+.hero-prop-hit {
+  display: block; width: 16%; height: 17%; border-radius: 18px;
+  border: 0; background: transparent; pointer-events: auto; touch-action: none; cursor: grab;
+}
+.hero-prop-hit:active { cursor: grabbing; }
+.hero-prop-sticker {
+  display: grid; place-items: center; width: clamp(31px, 5vw, 49px); aspect-ratio: 1;
+  rotate: -11deg; border: 2px solid #fffaf4; border-radius: 12px; box-shadow: var(--shadow);
+}
+.hero-prop-keycap { background: #dfcdf1; color: #654982; }
+.hero-prop-coffee { background: #f4d6b8; color: #815439; rotate: 12deg; }
+.hero-prop-terminal { background: #d2e7fa; color: #536a8d; }
+@media (max-width: 500px) { .hero-prop-sticker svg { width: 17px; height: 17px; } }
 .hero-spark { position: absolute; animation: twinkle 6s ease-in-out infinite; }
 .hero-spark-one { width: 9%; left: 2%; top: 36%; color: #dfaa5d; --outline: #9a732e; }
 .hero-spark-two { width: 5%; right: 16%; top: 2%; color: #ae8ac7; animation-delay: -2s; }
 .hero-spark-three { width: 6%; right: 3%; top: 60%; color: #edb2c7; animation-delay: -4s; }
-.hero-camera {
-  position: absolute; bottom: 28%; left: 3%; display: grid; place-items: center; width: 56px; height: 47px;
-  border: 3px solid #fff9ec; border-radius: 13px; background: #f1bdcc; color: #754664; box-shadow: var(--shadow);
-  rotate: -11deg; animation: float 5.7s ease-in-out infinite;
-}
-.hero-flower {
-  position: absolute; width: 13%; right: 4%; top: 64%; color: #e7a9c0;
-  --center: #ffeaa8; --outline: #784d6c; rotate: 18deg; animation: float 7s ease-in-out infinite reverse;
-}
 .hero-terminal { position: absolute; z-index: 2; bottom: 3%; left: 4%; width: min(55%, 261px); transform: rotate(-7deg); }
 .terminal { border: 1px solid #65576b; border-radius: 11px; overflow: hidden; background: #342c3b; color: #fff3f7; box-shadow: 0 9px 0 #a07fb536, 0 13px 20px #2f1c3b26; }
 .terminal-top {
@@ -546,8 +552,6 @@ button:disabled { cursor: wait; }
   .nav-mobile a:hover, .nav-mobile a[aria-current] { background: var(--color-lilac); color: var(--purple); }
   .nav-mobile .button-nav-mobile { display: flex; justify-content: space-between; min-height: 40px; margin-top: 5px; padding-inline: 12px; background: #f2dbe6; color: #53364d; }
   .hero-grid { min-height: 545px; }
-  .hero-brackets { width: 37px; height: 36px; }
-  .hero-camera { width: 43px; height: 39px; }
   .hero-location { right: -1%; }
   .journey { gap: 6px; }
   .journey li { display: block; }
@@ -601,10 +605,6 @@ button:disabled { cursor: wait; }
   .hero-arrow { width: 13%; right: 0; top: 20%; }
   .hero-location { padding: 4px 5px; font-size: .56rem; right: -1%; }
   .hero-location svg { width: 11px; height: 11px; }
-  .hero-brackets { width: 31px; height: 30px; border-radius: 8px; left: 5%; }
-  .hero-brackets svg { width: 18px; }
-  .hero-camera { width: 36px; height: 33px; border-radius: 10px; }
-  .hero-camera svg { width: 18px; }
   .hero-terminal { left: 5%; bottom: 0; }
   .terminal-content { padding: 5px 6px; font-size: clamp(.53rem, 2.2vw, .69rem); }
   .terminal-top { min-height: 27px; padding-left: 6px; font-size: .55rem; }

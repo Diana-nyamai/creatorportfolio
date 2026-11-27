@@ -1,7 +1,8 @@
-import { Camera, CodeXml, Heart, MapPin } from "lucide-react";
+import { Heart, MapPin } from "lucide-react";
 import { site } from "@/data/site-config";
-import { CurvedArrow, Flower, Spark } from "./art";
+import { CurvedArrow, Spark } from "./art";
 import { Darcy } from "./darcy";
+import { HeroProps } from "./hero-3d/hero-props";
 import { HeroFrame } from "./hero-frame";
 import { PhotoFrame } from "./photo";
 import { Terminal } from "./terminal";
@@ -14,15 +15,13 @@ export function Hero() {
       <Spark className="hero-spark hero-spark-one" />
       <Spark className="hero-spark hero-spark-two" />
       <Spark className="hero-spark hero-spark-three" />
-      <span className="hero-brackets"><CodeXml aria-hidden="true" /></span>
       <PhotoFrame className="hero-portrait" photo={site.media.hero} placeholder="Portrait photo placeholder"
         caption="diana ndinda" sizes="(max-width: 560px) 56vw, (max-width: 720px) 285px, (max-width: 1000px) 28vw, 350px" priority />
       <div className="tape hero-tape" aria-hidden="true" />
       <div className="hero-handwritten">creating on<br /> the internet <Heart size={14} aria-hidden="true" /></div>
       <CurvedArrow className="hero-arrow" />
       <div className="hero-location"><MapPin size={14} aria-hidden="true" /> {site.location}</div>
-      <div className="hero-camera"><Camera aria-hidden="true" /></div>
-      <Flower className="hero-flower" />
+      <HeroProps />
       <div className="hero-terminal"><Terminal /></div>
       <Darcy className="hero-darcy" />
     </HeroFrame>
